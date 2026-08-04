@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@theme {
+  /* Reset Tailwind's default color and font-size scales — this project's
+     tokens are the only ones available, mirrored 1:1 from Figma variables. */
+  --color-*: initial;
+  --text-*: initial;
+
+  /* Font families — DM Serif Text for display/heading-xl/lg/md, Inter for
+     everything else. --font-sans is overridden (not cleared) so it stays
+     the default body typeface via Tailwind's --default-font-family. */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'DM Serif Text', ui-serif, Georgia, serif;
+
+  /* Content (text) colors */
+  --color-content-primary: #151718;
+  --color-content-secondary: #404449;
+  --color-content-tertiary: #6b7179;
+  --color-content-primary-inverse: #ffffff;
+  --color-content-secondary-inverse: #e1e3e4;
+  --color-content-tertiary-inverse: #e1e3e4;
+  --color-content-disabled: #a6aaaf;
+
+  /* Background colors */
+  --color-background-primary: #ffffff;
+  --color-background-subtle: #e1e3e4;
+  --color-background-subtle-2: #c4c6c9;
+  --color-background-brand: #f17300;
+  --color-background-secondary: #3c83f6;
+  --color-background-inverse: #151718;
+  --color-background-unique: #f6f5f3;
+
+  /* Background theme colors */
+  --color-background-theme-brand-100: #fce3cc;
+  --color-background-theme-brand-200: #f9c799;
+  --color-background-theme-brand-900: #301700;
+  --color-background-theme-secondary-100: #d8e6fd;
+  --color-background-theme-secondary-200: #b1cdfb;
+  --color-background-theme-secondary-900: #0c1a31;
+  --color-background-theme-tertiary-100: #cee9f0;
+  --color-background-theme-tertiary-200: #9cd3e0;
+  --color-background-theme-tertiary-900: #021d24;
+
+  /* Border colors */
+  --color-border-primary: #565a61;
+  --color-border-secondary: #898d94;
+  --color-border-tertiary: #c4c6c9;
+  --color-border-disabled: #e1e3e4;
+  --color-border-focus: #3c83f6;
+
+  /* Action colors */
+  --color-action-primary: #f17300;
+  --color-action-primary-hover: #c15c00;
+  --color-action-primary-pressed: #914500;
+  --color-action-secondary-default: #3c83f6;
+  --color-action-secondary-hover: #3069c5;
+  --color-action-secondary-disabled: #e1e3e4;
+  --color-action-tertiary-default: #0891b2;
+  --color-action-tertiary-hover: #06748e;
+  --color-action-tertiary-pressed: #05576b;
+  --color-action-tertiary-disabled: #e1e3e4;
+
+  /* Feedback colors */
+  --color-feedback-success: #10b981;
+  --color-feedback-success-subtle: #cff1e6;
+  --color-feedback-error: #ef4444;
+  --color-feedback-error-subtle: #fff8f8;
+  --color-feedback-info: #3c83f6;
+
+  /* Typography — size / line-height / letter-spacing only.
+     Font-family and font-weight are intentionally NOT baked into these
+     tokens; pair each with Tailwind's font-display/font-sans and
+     font-normal/medium/semibold/bold utilities:
+       display-2xl -> font-display font-semibold
+       heading-xl  -> font-display font-bold
+       heading-lg  -> font-display font-semibold
+       heading-md  -> font-display font-semibold
+       heading-sm  -> font-sans font-semibold
+       heading-xs  -> font-sans font-medium
+       heading-2xs -> font-sans font-medium
+       body-*      -> font-sans font-normal
+       label-lead  -> font-sans font-normal
+       label-large/small -> font-sans font-medium
+       label-caption -> font-sans font-normal
+       label-overline -> font-sans font-medium
+       button-*    -> font-sans font-semibold
+
+     Note: DM Serif Text ships only a Regular (400) cut, and this project
+     keeps `font-synthesis: none` (see :root below), so font-semibold /
+     font-bold on the four font-display tokens above will NOT visually
+     bold — they render at regular weight. The classes are still applied
+     per spec so weight intent stays visible in markup; only the pixel
+     rendering is capped by the typeface. */
+  --text-display-2xl: 48px;
+  --text-display-2xl--line-height: 56px;
+  --text-display-2xl--letter-spacing: -1px;
+
+  --text-heading-xl: 40px;
+  --text-heading-xl--line-height: 48px;
+  --text-heading-xl--letter-spacing: -1px;
+
+  --text-heading-lg: 32px;
+  --text-heading-lg--line-height: 40px;
+  --text-heading-lg--letter-spacing: -1px;
+
+  --text-heading-md: 24px;
+  --text-heading-md--line-height: 32px;
+  --text-heading-md--letter-spacing: -0.5px;
+
+  --text-heading-sm: 20px;
+  --text-heading-sm--line-height: 28px;
+  --text-heading-sm--letter-spacing: -0.5px;
+
+  --text-heading-xs: 18px;
+  --text-heading-xs--line-height: 26px;
+  --text-heading-xs--letter-spacing: -0.5px;
+
+  --text-heading-2xs: 16px;
+  --text-heading-2xs--line-height: 24px;
+  --text-heading-2xs--letter-spacing: 0px;
+
+  --text-body-large: 18px;
+  --text-body-large--line-height: 28px;
+  --text-body-large--letter-spacing: 0px;
+
+  --text-body-medium: 16px;
+  --text-body-medium--line-height: 24px;
+  --text-body-medium--letter-spacing: 0px;
+
+  --text-body-small: 14px;
+  --text-body-small--line-height: 20px;
+  --text-body-small--letter-spacing: 0px;
+
+  --text-label-lead: 20px;
+  --text-label-lead--line-height: 28px;
+  --text-label-lead--letter-spacing: -0.5px;
+
+  --text-label-large: 16px;
+  --text-label-large--line-height: 24px;
+  --text-label-large--letter-spacing: 0px;
+
+  --text-label-small: 14px;
+  --text-label-small--line-height: 20px;
+  --text-label-small--letter-spacing: 0px;
+
+  --text-label-caption: 12px;
+  --text-label-caption--line-height: 16px;
+  --text-label-caption--letter-spacing: 0px;
+
+  --text-label-overline: 12px;
+  --text-label-overline--line-height: 16px;
+  --text-label-overline--letter-spacing: 0px;
+
+  --text-button-large: 16px;
+  --text-button-large--line-height: 24px;
+  --text-button-large--letter-spacing: 0px;
+
+  --text-button-medium: 14px;
+  --text-button-medium--line-height: 20px;
+  --text-button-medium--letter-spacing: 0px;
+
+  --text-button-small: 12px;
+  --text-button-small--line-height: 16px;
+  --text-button-small--letter-spacing: 0px;
+}
+
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
