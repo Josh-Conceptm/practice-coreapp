@@ -1,0 +1,18 @@
+import type { SVGProps } from 'react'
+
+function SheetIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path
+        d="M17.5 4.16667C17.5 3.2475 16.7525 2.5 15.8333 2.5H4.16667C3.2475 2.5 2.5 3.2475 2.5 4.16667V15.8333C2.5 16.7525 3.2475 17.5 4.16667 17.5H15.8333C16.7525 17.5 17.5 16.7525 17.5 15.8333V4.16667ZM4.16667 15.8333V4.16667H15.8333L15.835 15.8333H4.16667Z"
+        fill="currentColor"
+      />
+      <path
+        d="M5.83325 5.83331H7.49825V7.49998H5.83325V5.83331ZM9.16659 5.83331H14.1666V7.49998H9.16659V5.83331ZM5.83325 9.16665H7.49825V10.8333H5.83325V9.16665ZM9.16659 9.16665H14.1666V10.8333H9.16659V9.16665ZM5.83325 12.5H7.49825V14.1666H5.83325V12.5ZM9.16659 12.5H14.1666V14.1666H9.16659V12.5Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+export default SheetIcon
