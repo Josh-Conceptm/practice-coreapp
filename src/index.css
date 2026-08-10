@@ -181,7 +181,16 @@
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  /* Was 18px (with a max-width:1024px media query dropping it back to the
+     correct 16px) — landing-page-scaffold typography from before the
+     token system existed. Tailwind's spacing/sizing utilities are
+     rem-based and assume a 16px root, so an 18px root silently scaled
+     *every* padding/gap/icon-size utility in the app by 1.125x (e.g. an
+     intended 8px came out 9px, 24px came out 27px) — confirmed by
+     measuring rendered padding against each component's own Tailwind
+     classes. Fixing the root, not multiplying every utility value to
+     compensate for it. */
+  font: 16px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
@@ -190,10 +199,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -216,12 +221,15 @@
   }
 }
 
+/* Was a fixed 1126px centered column with text-align:center and a visible
+   side border — landing-page-scaffold styling from before the app shell
+   (AppLayout/SideNav/TopNav) existed. It was silently overriding layout
+   and text alignment for every real component mounted here (confirmed:
+   Tooltip and SideNav's section-title text both inherited the centering,
+   and the whole app was constrained to 1126px instead of filling the
+   viewport as AppLayout's h-screen assumes). Kept only what's still
+   layout-neutral for an app shell. */
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;

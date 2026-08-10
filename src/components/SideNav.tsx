@@ -95,8 +95,17 @@ function NavSectionBlock({
   // every section's items always show regardless of its own collapsed state.
   const showItems = !open || !section.collapsible || !collapsed
 
+  // items-start always, never items-center: with the icon column exactly
+  // filling its collapsed content box (36px icon in 68px rail - 2*16px
+  // padding = 36px available), items-start and items-center render
+  // identically once settled — but align-items can't be transitioned, so
+  // toggling it makes children instantly re-center within the
+  // *pre-transition* (still wide) container width, then visibly glide back
+  // into place as that width catches up. That glide is the "shifts right
+  // before closing" bug — keeping this items-start at all times removes
+  // the jump instead of just hiding it.
   return (
-    <div className={cx('flex flex-col gap-4', open ? 'w-full items-start' : 'items-center')}>
+    <div className={cx('flex flex-col items-start gap-4', open && 'w-full')}>
       {!open && <div aria-hidden="true" className="h-px w-9 bg-border-tertiary" />}
       {open && (
         <div className="flex w-full items-center justify-between">
@@ -124,7 +133,7 @@ function NavSectionBlock({
         </div>
       )}
       {showItems && (
-        <div className={cx('flex flex-col gap-4', open ? 'w-full items-start' : 'items-center')}>
+        <div className={cx('flex flex-col items-start gap-4', open && 'w-full')}>
           {section.items.map((item) => (
             <NavItemRow
               key={item.id}
@@ -186,8 +195,13 @@ function SideNav({
           // clipped. See the comment on the logo row below for why that
           // overflow is intentional, and the comment on <nav> for how its
           // paint order above adjacent content is guaranteed.
-          'flex min-h-0 flex-1 flex-col gap-8 overflow-visible',
-          open ? 'items-start pb-6 pl-4 pr-6' : 'items-center px-4',
+          // items-start always (not items-center when collapsed) — see the
+          // NavSectionBlock comment above for why toggling this causes a
+          // visible jump. Left padding (pl-4) is deliberately identical in
+          // both states so the icon column's offset from the rail's own
+          // left edge never changes either.
+          'flex min-h-0 flex-1 flex-col items-start gap-8 overflow-visible',
+          open ? 'pb-6 pl-4 pr-6' : 'px-4',
         )}
       >
         {/* Logo row uses the actual Figma fixed widths per state — 160px
@@ -244,8 +258,8 @@ function SideNav({
 
       <div
         className={cx(
-          'flex w-full shrink-0 flex-col gap-6',
-          open ? 'items-start pl-4 pr-6' : 'items-center px-4',
+          'flex w-full shrink-0 flex-col items-start gap-6',
+          open ? 'pl-4 pr-6' : 'px-4',
         )}
       >
         {bottomItems.map((item) => (

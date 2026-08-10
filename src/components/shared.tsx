@@ -40,8 +40,17 @@ export const BUTTON_VARIANT_STYLES = {
     'bg-action-primary text-content-primary-inverse hover:bg-action-primary-hover active:bg-action-primary-pressed',
   tertiary:
     'bg-action-tertiary-default text-content-primary-inverse hover:bg-action-tertiary-hover active:bg-action-tertiary-pressed',
+  // Inset box-shadow, not a real `border` — a layout border adds its width
+  // on top of padding+content regardless of box-sizing (border-box only
+  // reshapes an *explicitly set* width/height; these buttons are
+  // auto-height, so box-sizing has no effect on them at all). That was
+  // confirmed measured: small outline buttons rendered 30px instead of
+  // the spec'd 28px (6px padding x2 + 16px line-height) purely because a
+  // real 1px border added 2px on top of that formula. An inset shadow
+  // paints the same 1px ring inside the box without adding to its size —
+  // visually identical, but the box stays exactly padding+content tall.
   outline:
-    'bg-background-primary text-content-secondary border border-border-tertiary hover:bg-background-subtle active:bg-background-subtle-2 active:border-border-disabled',
+    'bg-background-primary text-content-secondary shadow-[inset_0_0_0_1px_var(--color-border-tertiary)] hover:bg-background-subtle active:bg-background-subtle-2 active:shadow-[inset_0_0_0_1px_var(--color-border-disabled)]',
   borderless:
     'bg-transparent text-content-primary hover:bg-background-subtle active:bg-background-subtle-2',
 } as const

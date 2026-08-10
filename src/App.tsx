@@ -1,8 +1,7 @@
-import TypographyPreview from './components/TypographyPreview'
+import AddedBanksAccountsPage from './pages/AddedBanksAccountsPage'
 
 function App() {
-  // Temporary: swap back to <PlaceholderHeading /> once typography is verified.
-  return <TypographyPreview />
+  return <AddedBanksAccountsPage />
 }
 
 export default App
